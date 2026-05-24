@@ -1,0 +1,20 @@
+# Unity generated folders
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+
+# VisualStudio cache
+.vs/
+*.csproj
+*.sln
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Unity meta files — KEEP these for packages
+# (do NOT ignore *.meta in a UPM package)

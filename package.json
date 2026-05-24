@@ -1,0 +1,17 @@
+{
+  "name": "com.ginotu.prototype-kit",
+  "version": "0.1.0",
+  "displayName": "Gino Prototype Kit",
+  "description": "Reusable scripts and prefabs for rapid game prototyping. Covers top-down, 2D platformer, and strategy game archetypes.",
+  "unity": "6000.0",
+  "author": {
+    "name": "GinoTu"
+  },
+  "keywords": [
+    "prototype",
+    "gamemanager",
+    "player-controller",
+    "ui"
+  ],
+  "dependencies": {}
+}

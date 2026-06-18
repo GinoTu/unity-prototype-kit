@@ -22,10 +22,12 @@ namespace Gino.PrototypeKit
     {
         public static GameManager Instance { get; private set; }
         public static event Action<GameState> OnStateChanged;
+        public static event Action<int> OnScoreChanged;
 
         public GameState CurrentState { get; private set; } = GameState.Playing;
+        public int Score { get; private set; }
 
-        private void Awake()
+        protected virtual void Awake()
         {
             if (Instance != null && Instance != this)
             {
@@ -50,6 +52,32 @@ namespace Gino.PrototypeKit
             SetState(CurrentState == GameState.Paused ? GameState.Playing : GameState.Paused);
         }
 
+        // ── forge-build 相容方法（virtual 允許子類別 override）────────────────
+
+        public virtual void WinGame()  => SetState(GameState.Victory);
+        public virtual void GameOver() => SetState(GameState.GameOver);
+
+        public virtual void AddScore(int amount)
+        {
+            Score += amount;
+            OnScoreChanged?.Invoke(Score);
+        }
+
+        public virtual void ResetScore()
+        {
+            Score = 0;
+            OnScoreChanged?.Invoke(Score);
+        }
+
         public bool IsPlaying => CurrentState == GameState.Playing;
+
+#if UNITY_EDITOR
+        private void Update()
+        {
+            if (UnityEngine.Input.GetKeyDown(KeyCode.F1)) AddScore(10);
+            if (UnityEngine.Input.GetKeyDown(KeyCode.F2)) WinGame();
+            if (UnityEngine.Input.GetKeyDown(KeyCode.F3)) GameOver();
+        }
+#endif
     }
 }

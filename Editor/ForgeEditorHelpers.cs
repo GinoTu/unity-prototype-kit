@@ -226,7 +226,7 @@ namespace Gino.PrototypeKit.Editor
                         "[ForgeVerify] ❌ Kit 未安裝：manifest.json 缺少 com.ginotu.prototype-kit\n" +
                         "修正：在 Packages/manifest.json 的 dependencies 加入：\n" +
                         "  \"com.ginotu.prototype-kit\": " +
-                        "\"https://github.com/GinoTu/unity-prototype-kit.git#0.1.0\"");
+                        "\"https://github.com/GinoTu/unity-prototype-kit.git#0.2.0\"");
                     errors++;
                 }
             }

@@ -1,6 +1,6 @@
 # Gino Prototype Kit
 
-快速起原型用的 Unity 6 UPM 套件，涵蓋俯視角 / 2D 平台 / 策略模擬三種遊戲類型的常用元件。
+快速起原型用的 Unity 6 UPM 套件。涵蓋俯視角 / 方向性 2D 兩種角色控制器、遊戲狀態管理、虛擬搖桿 UI、手繪美術素材，以及與 `/forge-build` 自動化工具整合的 Editor Helper。
 
 ---
 
@@ -13,13 +13,11 @@
 3. 左上角 **+** → **Add package from git URL**
 4. 貼入：
    ```
-   https://github.com/GinoTu/unity-prototype-kit.git#0.1.0
+   https://github.com/GinoTu/unity-prototype-kit.git#0.2.0
    ```
 5. 點 **Add** → 安裝完成
 
-### 安裝 Demo Scene（選用）
-
-Package Manager → 找到 **Gino Prototype Kit** → 點開 **Samples** → Install **Demo**
+安裝後點選單 **Forge > Verify Setup** 確認環境就緒（Kit 已裝、Tags 存在、TMP 已導入）。
 
 ---
 
@@ -29,22 +27,22 @@ Package Manager → 找到 **Gino Prototype Kit** → 點開 **Samples** → Ins
 
 | 腳本 | 用途 | 掛載對象 |
 |:--|:--|:--|
-| `TopDownController` | 俯視角八方向移動 | 角色 GameObject |
+| `TopDownController` | 俯視角八方向移動，支援鍵盤與虛擬搖桿 | 角色 GameObject |
+| `DirectionalCharacterController` | 方向性移動 + 自動切換四方向 Sprite | 角色 GameObject |
 | `PlatformerController` | 2D 橫向平台跳躍 | 角色 GameObject |
 
-**快速起手（TopDown）：**
+**TopDown 快速起手：**
 ```
-1. 建一個空 GameObject，加 Rigidbody2D（Gravity Scale = 0）+ CircleCollider2D
+1. 建空 GameObject，加 Rigidbody2D（Gravity Scale = 0）+ CircleCollider2D
 2. 掛上 TopDownController
 3. Play → WASD 移動
 ```
 
-**快速起手（Platformer）：**
+**DirectionalCharacter 快速起手：**
 ```
-1. 建一個空 GameObject，加 Rigidbody2D（Gravity Scale = 3）+ BoxCollider2D
-2. 掛上 PlatformerController
-3. 在 groundLayerMask 欄位設定你的地板 Layer
-4. Play → A/D 移動，Space 跳躍
+1. 執行選單 Gino Prototype Kit > Create Directional Character Prefab
+2. 把生成的 Prefab 拖進場景
+3. Play → WASD 移動，Sprite 自動切換方向
 ```
 
 ---
@@ -53,80 +51,130 @@ Package Manager → 找到 **Gino Prototype Kit** → 點開 **Samples** → Ins
 
 | 腳本 | 用途 | 取用方式 |
 |:--|:--|:--|
-| `GameManager` | 遊戲狀態管理（Playing / Paused / GameOver / Victory） | `GameManager.Instance.SetState(GameState.Paused)` |
+| `GameManager` | 遊戲狀態（Playing / Paused / GameOver / Victory）、分數 | `GameManager.Instance.AddScore(10)` |
 | `SceneTransitionManager` | 場景切換 + 淡入淡出 | `SceneTransitionManager.Instance.LoadScene("SceneName")` |
-| `SaveSystem` | 用 PlayerPrefs 存讀數據 | `SaveSystem.SetInt("score", 100)` |
+| `SaveSystem` | PlayerPrefs 存讀 | `SaveSystem.SetInt("score", 100)` |
 
-**監聽遊戲狀態變化：**
+`GameManager` 所有核心方法都是 `virtual`，可直接繼承擴充：
 ```csharp
-GameManager.OnStateChanged += (state) => {
-    if (state == GameState.GameOver) ShowGameOverUI();
-};
+public class MyGameManager : GameManager
+{
+    public override void WinGame()
+    {
+        base.WinGame();
+        ShowWinEffect();
+    }
+}
 ```
 
-**存讀檔範例：**
+監聽狀態與分數變化：
 ```csharp
-SaveSystem.SetInt("highScore", 9999);
-int best = SaveSystem.GetInt("highScore"); // 9999
+GameManager.OnStateChanged += state => { if (state == GameState.GameOver) ShowUI(); };
+GameManager.OnScoreChanged += score => scoreText.text = score.ToString();
 ```
 
 ---
 
-### 📺 UI Components（`Runtime/UI/`）
+### 📱 UI Components（`Runtime/UI/`）
 
-| 腳本 | 用途 | 關鍵方法 |
+| 腳本 | 用途 | 說明 |
 |:--|:--|:--|
+| `VirtualButton` | 螢幕虛擬方向鍵 | 掛在 Image 上，自動連接 TopDownController / DirectionalCharacterController |
 | `HealthBar` | Slider 型血條 | `SetHealth(current, max)` |
 | `DialogBox` | 逐字對話框 | `ShowDialog(string[])` |
-| `HUDManager` | 統一管理 HUD 顯示 | `AddScore(10)` / `StartTimer()` |
+| `HUDManager` | 統一管理 HUD | `AddScore(10)` / `StartTimer()` |
 
-**血條範例：**
-```csharp
-[SerializeField] private HealthBar healthBar;
-
-void Start() => healthBar.Init(100f);
-void OnHit() => healthBar.TakeDamage(20f);
+**虛擬方向鍵設定：**
 ```
-
-**對話框範例：**
-```csharp
-dialogBox.ShowDialog(new string[] {
-    "歡迎來到這個世界！",
-    "記得存檔再走。"
-});
-DialogBox.OnDialogEnd += () => { /* 對話結束後的邏輯 */ };
+1. 建一個 Image GameObject
+2. 掛上 VirtualButton
+3. 設定 direction（Vector2.up / down / left / right）
+4. 場景裡有 TopDownController 或 DirectionalCharacterController 時自動連接
 ```
 
 ---
 
-## 最小可跑 Prototype 組合
+### 🎨 手繪素材（`Textures/`）
 
+| 分類 | 檔案 |
+|:--|:--|
+| Characters | character_front / back / left / right / topdown |
+| Enemies | enemy |
+| Items | bomb / coin / star / blue_element / green_element / red_element / yellow_element |
+| Tiles | grass / water |
+| UI | button_up / button_down / button_left / button_right / bar / bar外框 |
+| Weapons | 刀 / 法杖 |
+
+執行 **Gino Prototype Kit > Create Prefabs from Sprites** 可一鍵生成所有素材的 Prefab。
+
+---
+
+### 🔧 Editor Helpers（`Editor/`）（與 `/forge-build` 整合）
+
+`ForgeEditorHelpers` 提供 Editor 腳本可直接呼叫的工具方法：
+
+| 方法 | 說明 |
+|:--|:--|
+| `AddCamera(orthoSize, bg)` | 建立 2D Camera（SolidColor clearFlags） |
+| `AddCanvasAndES(refW, refH)` | 建立 ScreenSpaceOverlay Canvas + EventSystem |
+| `MakeButton(...)` | 從 GDD Anchor 表格建立 TMP Button |
+| `MakeLabel(...)` | 建立 TMP 文字標籤 |
+| `MakePanel(...)` | 建立容器 Panel |
+| `MakeDirectionalPad(...)` | 一鍵生成四方向虛擬搖桿 |
+| `ResolveSprite(entity)` | 依實體名稱（"player" / "enemy" 等）回傳 Kit Sprite |
+| `FindTypeBySimpleName(name)` | 跨 Namespace 尋找 Type（解決反射限制） |
+| `FindButtonByLabel(label)` | 用 TMP 文字尋找場景中的 Button |
+| `VerifySetup()` | 選單觸發版（**Forge > Verify Setup**），失敗時顯示 Dialog |
+| `VerifySetupChecks()` | 回傳 `bool`，供 Editor 腳本在開頭 abort-on-fail |
+
+**在生成的 Editor 腳本中使用：**
+```csharp
+using Gino.PrototypeKit.Editor;
+
+public static class MySceneCreator
+{
+    public static void Build()
+    {
+        if (!ForgeEditorHelpers.VerifySetupChecks()) return;
+        var cam = ForgeEditorHelpers.AddCamera(5f);
+        var (canvas, es) = ForgeEditorHelpers.AddCanvasAndES(1080f, 1920f);
+        // ...
+    }
+}
 ```
-場景階層：
-├── GameManager (Prefab)
-├── SceneTransitionManager (Prefab)
-├── Player (掛 TopDownController)
-└── Canvas
-    └── HUDManager (Prefab)
-        ├── HealthBar (Prefab)
-        ├── ScoreText (TMP_Text)
-        └── TimerText (TMP_Text)
-```
+
+---
+
+## 選單總覽
+
+| 選單路徑 | 功能 |
+|:--|:--|
+| **Forge > Verify Setup** | 環境預檢（Kit / Tags / TMP） |
+| **Gino Prototype Kit > Create Prefabs from Sprites** | 所有素材一鍵生成 Prefab |
+| **Gino Prototype Kit > Create Directional Character Prefab** | 四方向角色 Prefab |
+| **Gino Prototype Kit > Create TopDown Character Prefab** | 俯視角角色 Prefab |
 
 ---
 
 ## 已知限制
 
-- `SaveSystem` 用 PlayerPrefs，資料存在本機，不適合正式遊戲上線
-- `SceneTransitionManager` 需要 Canvas + 一個全螢幕 Image 才能做淡入淡出
-- `HealthBar` 依賴 TextMeshPro（Unity 6 內建）
+- `SaveSystem` 用 PlayerPrefs，不適合正式遊戲上線
+- `SceneTransitionManager` 需要 Canvas + 全螢幕 Image 才能淡入淡出
+- `HealthBar` / TMP 元件依賴 TextMeshPro（Unity 6 內建，需先導入 Resources）
 
 ---
 
 ## Changelog
 
+### 0.2.0 (2026-06-22)
+- **新增** `DirectionalCharacterController`：四方向 Sprite 切換 + 鍵盤 / 虛擬按鍵雙輸入
+- **新增** `VirtualButton`：觸控螢幕虛擬方向鍵，自動連接兩種 Controller
+- **更新** `GameManager`：WinGame / GameOver / AddScore / ResetScore 改為 `virtual`，支援繼承擴充
+- **更新** `TopDownController`：加入虛擬按鍵 HashSet 輸入 + `CombinedInput` / `MoveDirection`
+- **新增** `ForgeEditorHelpers`：完整 Editor Helper 庫，含 `VerifySetupChecks()` 環境驗證
+- **新增** `PrefabCreatorEditor`：選單一鍵從素材生成 Prefab
+- **新增** 23 張手繪素材（Characters / Enemies / Items / Tiles / UI / Weapons）
+- **新增** 所有檔案的 `.meta`（修正 UPM 安裝時資產被 ignore 的問題）
+
 ### 0.1.0 (2026-05-24)
-- 初始版本
-- TopDownController、PlatformerController
-- GameManager、SceneTransitionManager、SaveSystem
-- HealthBar、DialogBox、HUDManager
+- 初始版本：TopDownController、PlatformerController、GameManager、SceneTransitionManager、SaveSystem、HealthBar、DialogBox、HUDManager

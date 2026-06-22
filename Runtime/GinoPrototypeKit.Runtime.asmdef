@@ -2,7 +2,7 @@
     "name": "GinoPrototypeKit.Runtime",
     "rootNamespace": "Gino.PrototypeKit",
     "references": [
-        "Unity.ugui",
+        "UnityEngine.UI",
         "Unity.TextMeshPro"
     ],
     "includePlatforms": [],

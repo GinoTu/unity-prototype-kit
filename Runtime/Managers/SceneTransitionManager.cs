@@ -17,7 +17,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace Gino.PrototypeKit
+namespace Gino.ForgeAssetPack
 {
     public class SceneTransitionManager : MonoBehaviour
     {

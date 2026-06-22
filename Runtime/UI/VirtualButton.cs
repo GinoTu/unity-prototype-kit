@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Gino.PrototypeKit
+namespace Gino.ForgeAssetPack
 {
     /// <summary>
     /// Attach to a UI Image/Button. Set direction and assign the character target.

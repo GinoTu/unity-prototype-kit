@@ -14,7 +14,7 @@
 using System;
 using UnityEngine;
 
-namespace Gino.PrototypeKit
+namespace Gino.ForgeAssetPack
 {
     public enum GameState { Playing, Paused, GameOver, Victory }
 

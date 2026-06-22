@@ -1,13 +1,14 @@
 {
-  "name": "com.ginotu.prototype-kit",
-  "version": "0.2.1",
-  "displayName": "Gino Prototype Kit",
-  "description": "Reusable scripts and prefabs for rapid game prototyping. Covers top-down, 2D platformer, and strategy game archetypes.",
+  "name": "com.ginotu.forge-asset-pack",
+  "version": "0.3.0",
+  "displayName": "Forge Asset Pack",
+  "description": "Art assets, controllers, and editor helpers for forge-build powered Unity 6 prototyping.",
   "unity": "6000.0",
   "author": {
     "name": "GinoTu"
   },
   "keywords": [
+    "forge-build",
     "prototype",
     "gamemanager",
     "player-controller",

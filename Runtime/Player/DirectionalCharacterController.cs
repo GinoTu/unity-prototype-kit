@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Gino.PrototypeKit
+namespace Gino.ForgeAssetPack
 {
     [RequireComponent(typeof(Rigidbody2D), typeof(SpriteRenderer))]
     public class DirectionalCharacterController : MonoBehaviour

@@ -5,11 +5,11 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace Gino.PrototypeKit.Editor
+namespace Gino.ForgeAssetPack.Editor
 {
     /// <summary>
     /// Shared Editor helpers for forge-build generated scripts.
-    /// Usage: add "using Gino.PrototypeKit.Editor;" to your SceneCreatorEditor / WireupEditor.
+    /// Usage: add "using Gino.ForgeAssetPack.Editor;" to your SceneCreatorEditor / WireupEditor.
     /// </summary>
     public static class ForgeEditorHelpers
     {
@@ -172,7 +172,7 @@ namespace Gino.PrototypeKit.Editor
 
                 var img = go.AddComponent<Image>();
                 var kitSprite = AssetDatabase.LoadAssetAtPath<Sprite>(
-                    $"Packages/com.ginotu.prototype-kit/Textures/UI/{spriteName}.png");
+                    $"Packages/com.ginotu.forge-asset-pack/Textures/UI/{spriteName}.png");
                 if (kitSprite != null) img.sprite = kitSprite;
 
                 if (btnType != null)
@@ -218,14 +218,14 @@ namespace Gino.PrototypeKit.Editor
             const string manifestPath = "Packages/manifest.json";
             if (System.IO.File.Exists(manifestPath))
             {
-                if (System.IO.File.ReadAllText(manifestPath).Contains("com.ginotu.prototype-kit"))
+                if (System.IO.File.ReadAllText(manifestPath).Contains("com.ginotu.forge-asset-pack"))
                     Debug.Log("[ForgeVerify] ✅ Kit 已安裝");
                 else
                 {
                     Debug.LogError(
-                        "[ForgeVerify] ❌ Kit 未安裝：manifest.json 缺少 com.ginotu.prototype-kit\n" +
+                        "[ForgeVerify] ❌ Kit 未安裝：manifest.json 缺少 com.ginotu.forge-asset-pack\n" +
                         "修正：在 Packages/manifest.json 的 dependencies 加入：\n" +
-                        "  \"com.ginotu.prototype-kit\": " +
+                        "  \"com.ginotu.forge-asset-pack\": " +
                         "\"https://github.com/GinoTu/unity-prototype-kit.git#0.2.0\"");
                     errors++;
                 }
@@ -275,7 +275,7 @@ namespace Gino.PrototypeKit.Editor
 
         /// <summary>
         /// Find a Type by simple class name (ignores namespace).
-        /// Fixes the namespace issue when Kit scripts live in Gino.PrototypeKit.
+        /// Fixes the namespace issue when Kit scripts live in Gino.ForgeAssetPack.
         /// Prefer over asm.GetType(name) which requires the fully-qualified name.
         /// </summary>
         public static System.Type FindTypeBySimpleName(string typeName)
@@ -303,7 +303,7 @@ namespace Gino.PrototypeKit.Editor
                 if (tmp != null && tmp.text == label) return btn;
             }
             Debug.LogWarning(
-                $"[PrototypeKit] FindButtonByLabel: \"{label}\" not found. " +
+                $"[ForgeAssetPack] FindButtonByLabel: \"{label}\" not found. " +
                 "Ensure MakeButton label matches exactly.");
             return null;
         }
@@ -319,12 +319,12 @@ namespace Gino.PrototypeKit.Editor
         {
             string kitPath = entity.ToLower() switch
             {
-                "player"      => "Packages/com.ginotu.prototype-kit/Textures/Characters/character_front.png",
-                "enemy"       => "Packages/com.ginotu.prototype-kit/Textures/Enemies/enemy.png",
-                "coin"        => "Packages/com.ginotu.prototype-kit/Textures/Items/coin.png",
-                "star"        => "Packages/com.ginotu.prototype-kit/Textures/Items/star.png",
-                "bomb"        => "Packages/com.ginotu.prototype-kit/Textures/Items/bomb.png",
-                "grass"       => "Packages/com.ginotu.prototype-kit/Textures/Tiles/grass.png",
+                "player"      => "Packages/com.ginotu.forge-asset-pack/Textures/Characters/character_front.png",
+                "enemy"       => "Packages/com.ginotu.forge-asset-pack/Textures/Enemies/enemy.png",
+                "coin"        => "Packages/com.ginotu.forge-asset-pack/Textures/Items/coin.png",
+                "star"        => "Packages/com.ginotu.forge-asset-pack/Textures/Items/star.png",
+                "bomb"        => "Packages/com.ginotu.forge-asset-pack/Textures/Items/bomb.png",
+                "grass"       => "Packages/com.ginotu.forge-asset-pack/Textures/Tiles/grass.png",
                 _             => null
             };
 

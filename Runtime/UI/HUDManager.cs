@@ -17,7 +17,7 @@
 using UnityEngine;
 using TMPro;
 
-namespace Gino.PrototypeKit
+namespace Gino.ForgeAssetPack
 {
     public class HUDManager : MonoBehaviour
     {

@@ -12,7 +12,7 @@
 
 using UnityEngine;
 
-namespace Gino.PrototypeKit
+namespace Gino.ForgeAssetPack
 {
     public static class SaveSystem
     {

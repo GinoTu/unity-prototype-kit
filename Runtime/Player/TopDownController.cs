@@ -14,7 +14,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Gino.PrototypeKit
+namespace Gino.ForgeAssetPack
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class TopDownController : MonoBehaviour

@@ -16,7 +16,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-namespace Gino.PrototypeKit
+namespace Gino.ForgeAssetPack
 {
     public class HealthBar : MonoBehaviour
     {

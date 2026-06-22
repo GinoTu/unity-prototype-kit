@@ -2,14 +2,14 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-namespace Gino.PrototypeKit.Editor
+namespace Gino.ForgeAssetPack.Editor
 {
     public static class PrefabCreatorEditor
     {
-        private const string TexturesRoot = "Packages/com.ginotu.prototype-kit/Textures";
+        private const string TexturesRoot = "Packages/com.ginotu.forge-asset-pack/Textures";
         private const string PrefabOutput  = "Assets/Prefabs/PrototypeKit";
 
-        [MenuItem("Gino Prototype Kit/Create Prefabs from Sprites")]
+        [MenuItem("Forge Asset Pack/Create Prefabs from Sprites")]
         public static void CreateAllPrefabs()
         {
             EnsureFolder("Assets/Prefabs", "PrototypeKit");
@@ -42,7 +42,7 @@ namespace Gino.PrototypeKit.Editor
 
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
-            Debug.Log($"[PrototypeKit] {total} prefabs created at {PrefabOutput}");
+            Debug.Log($"[ForgeAssetPack] {total} prefabs created at {PrefabOutput}");
         }
 
         // ── Texture import ──────────────────────────────────────────────────
@@ -143,7 +143,7 @@ namespace Gino.PrototypeKit.Editor
 
         // ── Directional Character Prefab ────────────────────────────────────
 
-        [MenuItem("Gino Prototype Kit/Create Directional Character Prefab")]
+        [MenuItem("Forge Asset Pack/Create Directional Character Prefab")]
         public static void CreateDirectionalCharacterPrefab()
         {
             // Ensure sprites are imported
@@ -158,7 +158,7 @@ namespace Gino.PrototypeKit.Editor
 
             if (spriteFront == null)
             {
-                Debug.LogError("[PrototypeKit] character_front.png not found. Run 'Create Prefabs from Sprites' first to import textures.");
+                Debug.LogError("[ForgeAssetPack] character_front.png not found. Run 'Create Prefabs from Sprites' first to import textures.");
                 return;
             }
 
@@ -190,10 +190,10 @@ namespace Gino.PrototypeKit.Editor
 
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
-            Debug.Log($"[PrototypeKit] DirectionalCharacter prefab created at {prefabPath}");
+            Debug.Log($"[ForgeAssetPack] DirectionalCharacter prefab created at {prefabPath}");
         }
 
-        [MenuItem("Gino Prototype Kit/Create TopDown Character Prefab")]
+        [MenuItem("Forge Asset Pack/Create TopDown Character Prefab")]
         public static void CreateTopDownCharacterPrefab()
         {
             string charFolder = $"{TexturesRoot}/Characters";
@@ -204,7 +204,7 @@ namespace Gino.PrototypeKit.Editor
 
             if (spriteTopDown == null)
             {
-                Debug.LogError("[PrototypeKit] character_topdown.png not found.");
+                Debug.LogError("[ForgeAssetPack] character_topdown.png not found.");
                 return;
             }
 
@@ -229,7 +229,7 @@ namespace Gino.PrototypeKit.Editor
 
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
-            Debug.Log($"[PrototypeKit] TopDownCharacter prefab created at {prefabPath}");
+            Debug.Log($"[ForgeAssetPack] TopDownCharacter prefab created at {prefabPath}");
         }
 
         static Sprite LoadCharacterSprite(string filename)

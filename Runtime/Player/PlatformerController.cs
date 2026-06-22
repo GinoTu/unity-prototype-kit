@@ -17,7 +17,7 @@
 
 using UnityEngine;
 
-namespace Gino.PrototypeKit
+namespace Gino.ForgeAssetPack
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class PlatformerController : MonoBehaviour

@@ -1,4 +1,4 @@
-# Gino Prototype Kit
+# Forge Asset Pack
 
 快速起原型用的 Unity 6 UPM 套件。涵蓋俯視角 / 方向性 2D 兩種角色控制器、遊戲狀態管理、虛擬搖桿 UI、手繪美術素材，以及與 `/forge-build` 自動化工具整合的 Editor Helper。
 
@@ -13,7 +13,7 @@
 3. 左上角 **+** → **Add package from git URL**
 4. 貼入：
    ```
-   https://github.com/GinoTu/unity-prototype-kit.git#0.2.0
+   https://github.com/GinoTu/forge-asset-pack.git#0.3.0
    ```
 5. 點 **Add** → 安裝完成
 
@@ -40,7 +40,7 @@
 
 **DirectionalCharacter 快速起手：**
 ```
-1. 執行選單 Gino Prototype Kit > Create Directional Character Prefab
+1. 執行選單 Forge Asset Pack > Create Directional Character Prefab
 2. 把生成的 Prefab 拖進場景
 3. Play → WASD 移動，Sprite 自動切換方向
 ```
@@ -105,7 +105,7 @@ GameManager.OnScoreChanged += score => scoreText.text = score.ToString();
 | UI | button_up / button_down / button_left / button_right / bar / bar外框 |
 | Weapons | 刀 / 法杖 |
 
-執行 **Gino Prototype Kit > Create Prefabs from Sprites** 可一鍵生成所有素材的 Prefab。
+執行 **Forge Asset Pack > Create Prefabs from Sprites** 可一鍵生成所有素材的 Prefab。
 
 ---
 
@@ -129,7 +129,7 @@ GameManager.OnScoreChanged += score => scoreText.text = score.ToString();
 
 **在生成的 Editor 腳本中使用：**
 ```csharp
-using Gino.PrototypeKit.Editor;
+using Gino.ForgeAssetPack.Editor;
 
 public static class MySceneCreator
 {
@@ -150,9 +150,9 @@ public static class MySceneCreator
 | 選單路徑 | 功能 |
 |:--|:--|
 | **Forge > Verify Setup** | 環境預檢（Kit / Tags / TMP） |
-| **Gino Prototype Kit > Create Prefabs from Sprites** | 所有素材一鍵生成 Prefab |
-| **Gino Prototype Kit > Create Directional Character Prefab** | 四方向角色 Prefab |
-| **Gino Prototype Kit > Create TopDown Character Prefab** | 俯視角角色 Prefab |
+| **Forge Asset Pack > Create Prefabs from Sprites** | 所有素材一鍵生成 Prefab |
+| **Forge Asset Pack > Create Directional Character Prefab** | 四方向角色 Prefab |
+| **Forge Asset Pack > Create TopDown Character Prefab** | 俯視角角色 Prefab |
 
 ---
 
@@ -166,7 +166,7 @@ public static class MySceneCreator
 
 ## Changelog
 
-### 0.2.0 (2026-06-22)
+### 0.3.0 (2026-06-22)
 - **新增** `DirectionalCharacterController`：四方向 Sprite 切換 + 鍵盤 / 虛擬按鍵雙輸入
 - **新增** `VirtualButton`：觸控螢幕虛擬方向鍵，自動連接兩種 Controller
 - **更新** `GameManager`：WinGame / GameOver / AddScore / ResetScore 改為 `virtual`，支援繼承擴充

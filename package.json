@@ -13,5 +13,7 @@
     "player-controller",
     "ui"
   ],
-  "dependencies": {}
+  "dependencies": {
+    "com.unity.ugui": "2.0.0"
+  }
 }

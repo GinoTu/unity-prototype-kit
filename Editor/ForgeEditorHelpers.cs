@@ -324,7 +324,7 @@ namespace Gino.ForgeAssetPack.Editor
                 "coin"        => "Packages/com.ginotu.forge-asset-pack/Textures/Items/coin.png",
                 "star"        => "Packages/com.ginotu.forge-asset-pack/Textures/Items/star.png",
                 "bomb"        => "Packages/com.ginotu.forge-asset-pack/Textures/Items/bomb.png",
-                "grass"       => "Packages/com.ginotu.forge-asset-pack/Textures/Tiles/grass.png",
+                "grass"       => "Packages/com.ginotu.forge-asset-pack/Textures/Tiles/forest_tileset.png",
                 _             => null
             };
 

@@ -1,6 +1,6 @@
 {
   "name": "com.ginotu.forge-asset-pack",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "displayName": "Forge Asset Pack",
   "description": "Art assets, controllers, and editor helpers for forge-build powered Unity 6 prototyping.",
   "unity": "6000.0",

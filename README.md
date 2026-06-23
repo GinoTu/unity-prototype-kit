@@ -13,7 +13,7 @@
 3. 左上角 **+** → **Add package from git URL**
 4. 貼入：
    ```
-   https://github.com/GinoTu/forge-asset-pack.git#0.3.0
+   https://github.com/GinoTu/forge-asset-pack.git#0.3.1
    ```
 5. 點 **Add** → 安裝完成
 
@@ -101,11 +101,29 @@ GameManager.OnScoreChanged += score => scoreText.text = score.ToString();
 | Characters | character_front / back / left / right / topdown |
 | Enemies | enemy |
 | Items | bomb / coin / star / blue_element / green_element / red_element / yellow_element |
-| Tiles | grass / water |
+| Tiles | forest_tileset（4×4 手繪森林格子集，16 種地形）|
 | UI | button_up / button_down / button_left / button_right / bar / bar外框 |
 | Weapons | 刀 / 法杖 |
 
 執行 **Forge Asset Pack > Create Prefabs from Sprites** 可一鍵生成所有素材的 Prefab。
+
+---
+
+### 🗺️ TileMap System（`Runtime/TileMap/`）
+
+| 腳本 | 用途 |
+|:--|:--|
+| `TileMapData` | ScriptableObject，儲存地圖寬高與格子索引陣列 |
+| `TileMapRenderer` | 掛在 GameObject 上，自動把地圖渲染為 SpriteRenderer 子物件 |
+
+**快速起手：**
+```
+1. 右鍵 Assets → Create → Forge → TileMap Data，建立地圖資料
+2. 在場景建空 GameObject，掛上 TileMapRenderer
+3. 把 TileMapData 拖進 Map Data 欄位
+4. Inspector 出現 4×4 圖格調色盤 → 點選圖格，點擊地圖格子塗抹
+5. 用寬度/高度 Slider 調整地圖大小
+```
 
 ---
 
@@ -165,6 +183,12 @@ public static class MySceneCreator
 ---
 
 ## Changelog
+
+### 0.3.1 (2026-06-23)
+- **新增** `TileMapData`（ScriptableObject）＋ `TileMapRenderer`（ExecuteAlways）：完整的手繪格子地圖系統
+- **新增** `TileMapManagerEditor`：可視化 4×4 圖格調色盤 + 點擊/拖曳塗抹地圖 + 地圖大小 Slider
+- **新增** `Textures/Tiles/forest_tileset.png`：16 種手繪森林地形格子集
+- **移除** 舊版 grass.png / water.png
 
 ### 0.3.0 (2026-06-22)
 - **新增** `DirectionalCharacterController`：四方向 Sprite 切換 + 鍵盤 / 虛擬按鍵雙輸入

@@ -9,7 +9,7 @@ namespace Gino.ForgeAssetPack.Editor
         private const string TexturesRoot = "Packages/com.ginotu.forge-asset-pack/Textures";
         private const string PrefabOutput  = "Assets/Prefabs/PrototypeKit";
 
-        [MenuItem("Forge Asset Pack/Create Prefabs from Sprites")]
+        [MenuItem("Forge/Asset Pack/Create Prefabs from Sprites")]
         public static void CreateAllPrefabs()
         {
             EnsureFolder("Assets/Prefabs", "PrototypeKit");
@@ -143,7 +143,7 @@ namespace Gino.ForgeAssetPack.Editor
 
         // ── Directional Character Prefab ────────────────────────────────────
 
-        [MenuItem("Forge Asset Pack/Create Directional Character Prefab")]
+        [MenuItem("Forge/Asset Pack/Create Directional Character Prefab")]
         public static void CreateDirectionalCharacterPrefab()
         {
             // Ensure sprites are imported
@@ -193,7 +193,7 @@ namespace Gino.ForgeAssetPack.Editor
             Debug.Log($"[ForgeAssetPack] DirectionalCharacter prefab created at {prefabPath}");
         }
 
-        [MenuItem("Forge Asset Pack/Create TopDown Character Prefab")]
+        [MenuItem("Forge/Asset Pack/Create TopDown Character Prefab")]
         public static void CreateTopDownCharacterPrefab()
         {
             string charFolder = $"{TexturesRoot}/Characters";
